@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Textabot Demo</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-white min-h-screen">
+
+  <!-- Instruction Text Top Left -->
+  <div class="fixed top-6 left-6 z-40 bg-white/90 text-blue-700 text-base font-medium px-4 py-2">
+    Click the <span class="font-bold">!</span> button at bottom right to try the chatbot demo.
+  </div>
+
+  <!-- Floating Chat Button -->
+  <button id="openChat"
+    class="fixed bottom-8 right-8 w-[100px] h-[100px] rounded-full bg-blue-600 text-white text-5xl font-bold shadow-lg flex items-center justify-center hover:bg-blue-700 transition-colors focus:outline-none z-40"
+    aria-label="Open Chatbot"
+  >!</button>
+ 
+
+  <!-- Chatbot Panel (hidden by default) -->
+  <div id="chatPanel"
+    class="fixed bottom-8 right-8 w-full max-w-sm sm:max-w-md bg-white rounded-2xl shadow-2xl border border-blue-100 flex flex-col z-50"
+    style="display:none; min-height: 480px;"
+  >
+    <!-- Chatbot Header -->
+    <div class="flex items-center justify-between px-4 py-3 border-b border-blue-100 rounded-t-2xl bg-blue-50">
+      <span class="font-semibold text-blue-700">Textabot Demo</span>
+      <button id="closeChat" class="text-slate-400 hover:text-blue-700 text-2xl font-bold focus:outline-none" aria-label="Close">&times;</button>
+    </div>
+    <!-- Chatbot Conversation -->
+    <div class="flex-1 overflow-y-auto px-4 py-6 space-y-6 bg-white">
+      <!-- User 1 -->
+      <div class="flex justify-end">
+        <div class="bg-slate-50 text-slate-900 rounded-xl px-4 py-3 max-w-[80%] shadow text-base">
+          How do I configure my router?
+        </div>
+      </div>
+      <!-- Bot 1 -->
+      <div class="flex flex-col items-start">
+        <div class="bg-blue-50 text-slate-900 rounded-xl px-4 py-3 max-w-[80%] shadow text-base">
+          To configure your router, connect to the admin panel by entering <span class="font-mono text-blue-700">192.168.1.1</span> in your browser.<br>
+          Log in using your admin credentials, then navigate to the network settings section.
+        </div>
+        <div class="flex items-center gap-2 mt-2 text-xs text-blue-700">
+          <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          Answer sourced from Router Manual (PDF)
+        </div>
+      </div>
+      <!-- User 2 -->
+      <div class="flex justify-end">
+        <div class="bg-slate-50 text-slate-900 rounded-xl px-4 py-3 max-w-[80%] shadow text-base">
+          How can I safely restart the router?
+        </div>
+      </div>
+      <!-- Bot 2 -->
+      <div class="flex flex-col items-start">
+        <div class="bg-blue-50 text-slate-900 rounded-xl px-4 py-3 max-w-[80%] shadow text-base">
+          To safely restart the router, use the reboot option in the admin panel.<br>
+          Avoid unplugging the power cable while the router is running to prevent configuration damage.
+        </div>
+        <div class="flex items-center gap-2 mt-2 text-xs text-blue-700">
+          <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          Source: Page 18, Router Manual PDF
+        </div>
+      </div>
+    </div>
+    <!-- Chat Input (disabled) -->
+    <div class="px-4 py-3 border-t border-blue-100 bg-blue-50 rounded-b-2xl">
+      <form class="flex items-center gap-2">
+        <input type="text" class="flex-1 rounded-lg border border-blue-200 px-4 py-2 bg-slate-100 text-slate-400" placeholder="Type your question..." disabled />
+        <button type="button" class="rounded-lg bg-blue-400 text-white px-4 py-2 font-semibold opacity-60 cursor-not-allowed" disabled>Send</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const openBtn = document.getElementById('openChat');
+    const chatPanel = document.getElementById('chatPanel');
+    const closeBtn = document.getElementById('closeChat');
+    openBtn.onclick = () => {
+      chatPanel.style.display = 'flex';
+      openBtn.style.display = 'none';
+    };
+    closeBtn.onclick = () => {
+      chatPanel.style.display = 'none';
+      openBtn.style.display = 'flex';
+    };
+  </script>
+</body>
+</html>
