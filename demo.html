@@ -8,86 +8,155 @@
 </head>
 <body class="bg-white min-h-screen">
 
-  <!-- Instruction Text Top Left -->
-  <div class="fixed top-6 left-6 z-40 bg-white/90 text-blue-700 text-base font-medium px-4 py-2">
-    Click the <span class="font-bold">!</span> button at bottom right to try the chatbot demo.
-  </div>
+  <!-- How it works / Basic Flow -->
+  <section class="max-w-5xl mx-auto px-6 pt-10">
+    <h1 class="text-2xl md:text-3xl font-bold text-slate-900 text-center">Simple setup in minutes</h1>
+    <p class="mt-2 text-center text-slate-600">Upload PDFs → Convert to chat → Embed → Deploy</p>
+    <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="rounded-lg border border-blue-100 bg-blue-50 p-4 text-center">
+        <div class="font-semibold text-blue-800">Upload PDFs</div>
+        <div class="mt-1 text-xs text-slate-600">Add your documents</div>
+      </div>
+      <div class="rounded-lg border border-blue-100 bg-blue-50 p-4 text-center">
+        <div class="font-semibold text-blue-800">Convert to Chat</div>
+        <div class="mt-1 text-xs text-slate-600">Generate a chatbot</div>
+      </div>
+      <div class="rounded-lg border border-blue-100 bg-blue-50 p-4 text-center">
+        <div class="font-semibold text-blue-800">Embed</div>
+        <div class="mt-1 text-xs text-slate-600">Copy iframe snippet</div>
+      </div>
+      <div class="rounded-lg border border-blue-100 bg-blue-50 p-4 text-center">
+        <div class="font-semibold text-blue-800">Deploy</div>
+        <div class="mt-1 text-xs text-slate-600">Publish to your site</div>
+      </div>
+    </div>
+  </section>
 
-  <!-- Floating Chat Button -->
-  <button id="openChat"
-    class="fixed bottom-8 right-8 w-[100px] h-[100px] rounded-full bg-blue-600 text-white text-5xl font-bold shadow-lg flex items-center justify-center hover:bg-blue-700 transition-colors focus:outline-none z-40"
-    aria-label="Open Chatbot"
-  >!</button>
- 
+  <!-- Two-column layout: Left embed, Right chat demo -->
+  <main class="max-w-5xl mx-auto px-6 py-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+      <!-- Left: Embed preview -->
+      <section class="rounded-2xl border border-blue-200 shadow-sm bg-white overflow-hidden">
+        <header class="bg-blue-50 px-6 py-4 border-b border-blue-100">
+          <h2 class="font-semibold text-blue-700">Embed Preview</h2>
+        </header>
+        <div class="p-6 space-y-4">
+          <p class="text-sm text-slate-700">Copy and paste this iframe into your page:</p>
+          <div class="rounded-md bg-slate-50 border border-slate-200 p-4">
+            <pre class="text-xs text-slate-700 overflow-x-auto"><code>&lt;iframe
+  src="https://textabot.io/embed/your-bot-id"
+  title="Textabot Chatbot"
+  style="width:100%;height:520px;border:0;"
+  loading="lazy"&gt;&lt;/iframe&gt;</code></pre>
+          </div>
+          <div class="rounded-xl border border-blue-100 bg-white p-6 text-center">
+            <div class="text-sm text-slate-600">Embedded chatbot would appear here</div>
+            <div class="mt-3 h-64 rounded-lg bg-blue-50 border border-blue-100"></div>
+          </div>
+        </div>
+      </section>
 
-  <!-- Chatbot Panel (hidden by default) -->
-  <div id="chatPanel"
-    class="fixed bottom-8 right-8 w-full max-w-sm sm:max-w-md bg-white rounded-2xl shadow-2xl border border-blue-100 flex flex-col z-50"
-    style="display:none; min-height: 480px;"
-  >
-    <!-- Chatbot Header -->
-    <div class="flex items-center justify-between px-4 py-3 border-b border-blue-100 rounded-t-2xl bg-blue-50">
-      <span class="font-semibold text-blue-700">Textabot Demo</span>
-      <button id="closeChat" class="text-slate-400 hover:text-blue-700 text-2xl font-bold focus:outline-none" aria-label="Close">&times;</button>
+      <!-- Right: Chatbox demo -->
+      <section class="rounded-2xl border border-blue-200 shadow-2xl bg-white overflow-hidden flex flex-col" style="min-height: 520px;">
+        <div class="bg-blue-50 px-6 py-4 border-b border-blue-100">
+          <div class="font-semibold text-blue-700 text-center text-base">
+            Demo Topic: Router Configuration &amp; Safe Restart
+          </div>
+        </div>
+        <div id="chatArea" class="flex flex-col gap-4 px-4 py-6 overflow-y-auto" style="height: 320px;">
+          <!-- Messages will be injected here -->
+        </div>
+        <div class="px-4 pb-2 text-xs text-slate-500">
+          Try asking: <span class="italic">How do I safely restart my router?</span>
+        </div>
+        <form id="chatForm" class="flex items-center gap-2 px-4 pb-4">
+          <input
+            id="chatInput"
+            type="text"
+            class="flex-1 rounded-lg border border-blue-200 px-4 py-2 bg-slate-50 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-200"
+            placeholder="Type your question…"
+            autocomplete="off"
+            required
+          />
+          <button
+            type="submit"
+            class="rounded-lg bg-blue-600 text-white px-4 py-2 font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
+          >Send</button>
+        </form>
+        <div class="text-center text-xs text-slate-400 py-2 border-t border-blue-50 bg-white">Powered by Textabot</div>
+      </section>
     </div>
-    <!-- Chatbot Conversation -->
-    <div class="flex-1 overflow-y-auto px-4 py-6 space-y-6 bg-white">
-      <!-- User 1 -->
-      <div class="flex justify-end">
-        <div class="bg-slate-50 text-slate-900 rounded-xl px-4 py-3 max-w-[80%] shadow text-base">
-          How do I configure my router?
-        </div>
-      </div>
-      <!-- Bot 1 -->
-      <div class="flex flex-col items-start">
-        <div class="bg-blue-50 text-slate-900 rounded-xl px-4 py-3 max-w-[80%] shadow text-base">
-          To configure your router, connect to the admin panel by entering <span class="font-mono text-blue-700">192.168.1.1</span> in your browser.<br>
-          Log in using your admin credentials, then navigate to the network settings section.
-        </div>
-        <div class="flex items-center gap-2 mt-2 text-xs text-blue-700">
-          <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-          Answer sourced from Router Manual (PDF)
-        </div>
-      </div>
-      <!-- User 2 -->
-      <div class="flex justify-end">
-        <div class="bg-slate-50 text-slate-900 rounded-xl px-4 py-3 max-w-[80%] shadow text-base">
-          How can I safely restart the router?
-        </div>
-      </div>
-      <!-- Bot 2 -->
-      <div class="flex flex-col items-start">
-        <div class="bg-blue-50 text-slate-900 rounded-xl px-4 py-3 max-w-[80%] shadow text-base">
-          To safely restart the router, use the reboot option in the admin panel.<br>
-          Avoid unplugging the power cable while the router is running to prevent configuration damage.
-        </div>
-        <div class="flex items-center gap-2 mt-2 text-xs text-blue-700">
-          <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-          Source: Page 18, Router Manual PDF
-        </div>
-      </div>
-    </div>
-    <!-- Chat Input (disabled) -->
-    <div class="px-4 py-3 border-t border-blue-100 bg-blue-50 rounded-b-2xl">
-      <form class="flex items-center gap-2">
-        <input type="text" class="flex-1 rounded-lg border border-blue-200 px-4 py-2 bg-slate-100 text-slate-400" placeholder="Type your question..." disabled />
-        <button type="button" class="rounded-lg bg-blue-400 text-white px-4 py-2 font-semibold opacity-60 cursor-not-allowed" disabled>Send</button>
-      </form>
-    </div>
-  </div>
+  </main>
 
   <script>
-    const openBtn = document.getElementById('openChat');
-    const chatPanel = document.getElementById('chatPanel');
-    const closeBtn = document.getElementById('closeChat');
-    openBtn.onclick = () => {
-      chatPanel.style.display = 'flex';
-      openBtn.style.display = 'none';
+    // Predefined triggers and responses
+    const triggers = [
+      {
+        keywords: [
+          'restart router',
+          'safely restart router',
+          'reboot router'
+        ],
+        response: `To safely restart your router:\n\n• Save any active configuration changes\n• Disconnect active users if possible\n• Power off the router for 10–15 seconds\n• Turn it back on and wait until all indicator lights stabilize\n\nThis helps prevent configuration corruption and hardware issues.`
+      },
+      {
+        keywords: [
+          'configure router',
+          'router setup',
+          'router configuration'
+        ],
+        response: `Router configuration typically involves:\n• Accessing the admin panel (commonly 192.168.1.1)\n• Setting WiFi name (SSID) and password\n• Updating firmware to the latest version\n• Enabling firewall and basic security rules\n\nAlways change the default admin credentials for security.`
+      }
+    ];
+
+    const errorResponse = `It seems you are asking something unrelated to the demo topic.\n\nThis demo chatbot only supports:\nRouter configuration and safe restart\n\nPlease try one of the suggested questions above.`;
+
+    // DOM elements
+    const chatArea = document.getElementById('chatArea');
+    const chatForm = document.getElementById('chatForm');
+    const chatInput = document.getElementById('chatInput');
+
+    // Helper to add a message bubble
+    function addMessage(text, sender = 'user') {
+      const bubble = document.createElement('div');
+      bubble.className = sender === 'user'
+        ? 'flex justify-end'
+        : 'flex justify-start';
+      bubble.innerHTML = `
+        <div class="${
+          sender === 'user'
+            ? 'bg-slate-50 text-slate-900'
+            : 'bg-blue-50 text-slate-900'
+        } rounded-xl px-4 py-3 max-w-[80%] shadow text-base whitespace-pre-line">
+          ${text}
+        </div>
+      `;
+      chatArea.appendChild(bubble);
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    // Handle form submit
+    chatForm.onsubmit = function(e) {
+      e.preventDefault();
+      const userMsg = chatInput.value.trim();
+      if (!userMsg) return;
+      addMessage(userMsg, 'user');
+      chatInput.value = '';
+      setTimeout(() => {
+        addMessage(getBotResponse(userMsg), 'bot');
+      }, 200);
     };
-    closeBtn.onclick = () => {
-      chatPanel.style.display = 'none';
-      openBtn.style.display = 'flex';
-    };
+
+    // Bot logic
+    function getBotResponse(msg) {
+      const lower = msg.toLowerCase();
+      for (const t of triggers) {
+        if (t.keywords.some(k => lower.includes(k))) {
+          return t.response;
+        }
+      }
+      return errorResponse;
+    }
   </script>
 </body>
 </html>
