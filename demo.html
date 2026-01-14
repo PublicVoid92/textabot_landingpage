@@ -6,9 +6,27 @@
   <title>Textabot Demo</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="bg-white min-h-screen">
+<body class="bg-white text-slate-900 min-h-screen flex flex-col">
 
-  <!-- How it works / Basic Flow -->
+  <!-- Header -->
+  <header class="border-b border-blue-100">
+    <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 w-1/4 min-w-[120px] group">
+        <img
+          src="images/logo.png"
+          alt="Textabot.io logo"
+          class="w-24 h-8 rounded bg-white object-contain"
+        />
+        <span class="font-bold text-lg text-slate-900 tracking-tight transition-colors group-hover:text-blue-900">Textabot.io</span>
+      </a>
+      <div class="hidden sm:flex items-center gap-3">
+        <a href="demo.html" class="text-sm text-blue-700 hover:text-blue-900">View Demo</a>
+        <a href="index.html#early-access" class="inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+          Get Early Access
+        </a>
+      </div>
+    </nav>
+  </header>
   <section class="max-w-5xl mx-auto px-6 pt-10">
     <h1 class="text-2xl md:text-3xl font-bold text-slate-900 text-center">Simple setup in minutes</h1>
     <p class="mt-2 text-center text-slate-600">Upload PDFs → Convert to chat → Embed → Deploy</p>
@@ -33,7 +51,7 @@
   </section>
 
   <!-- Two-column layout: Left embed, Right chat demo -->
-  <main class="max-w-5xl mx-auto px-6 py-10">
+  <main class="max-w-5xl mx-auto px-6 py-10 flex-1">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
       <!-- Left: Embed preview -->
       <section class="rounded-2xl border border-blue-200 shadow-sm bg-white overflow-hidden">
@@ -158,5 +176,69 @@
       return errorResponse;
     }
   </script>
+  <!-- Footer -->
+  <!-- Email Capture -->
+  <section id="early-access" class="bg-blue-600 py-16">
+    <div class="max-w-xl mx-auto px-6 text-center">
+      <h2 class="text-xl md:text-2xl font-bold text-white">
+        Early access — no spam
+      </h2>
+
+      <form id="earlyAccessForm" class="mt-6 flex flex-col gap-3">
+        <script>
+        document.getElementById('earlyAccessForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          var form = e.target;
+          var data = {
+            usage: form.querySelector('[name="entry.2005620554"]').value,
+            email: form.querySelector('[name="entry.1045781291"]').value
+          };
+          fetch('https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLjH5JrEBfZ6YNKTcsH5YYPu7LC-wosq5TCO0fcTRPPMUd-uNcvghxghrVC0VJb_jTZz692KIRWx6EELequI25lijz-Cpih1FSDETBGx-XZ5Ha44_PEaCJnKOXkrZ1a_zlX-78mOkNXOrnbrwr0O1c7PmGDOHMBcZ5-gIbDdliwv_TI5_mJMM3rsQFcUAaWQc_d2TYh_jILilLKB3k-3JK2bZ-srwVT-pJtdrd47gCHOMXD3xXi6w2OI8F_xBYw0th14J9su_ACCXJMVzOR66HMc57Fhag&lib=MVS83nN0mn0jTRdLVRnYk_lgdF5Y_Jutd', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' }
+          }).then(function() {
+            form.style.display = 'none';
+            document.getElementById('earlyAccessThankYou').style.display = 'block';
+          });
+        });
+        </script>
+          Request Access
+        </button>
+            </form>
+            <div id="earlyAccessThankYou" class="hidden mt-6 text-lg text-white font-semibold">Thank you! We'll be in touch soon.</div>
+            <script>
+            document.getElementById('earlyAccessForm').addEventListener('submit', function(e) {
+              e.preventDefault();
+              var form = e.target;
+              var data = new FormData(form);
+              fetch('https://docs.google.com/forms/d/e/1FAIpQLScOmt1P1pBgjqYnvunHPSM3Fd1Bx5fGixBhoigjh9igZxBwgw/formResponse', {
+                method: 'POST',
+                mode: 'no-cors',
+                body: data
+              }).then(function() {
+                form.style.display = 'none';
+                document.getElementById('earlyAccessThankYou').style.display = 'block';
+              });
+            });
+            </script>
+      </form>
+    </div>
+  </section>
+
+  <footer class="border-t border-blue-100 bg-blue-5 0">
+    <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between text-sm text-slate-700">
+      <div class="flex items-center gap-3">
+        <img
+          src="images/logo.png"
+          alt="Textabot.io logo"
+          class="w-7 h-5 rounded bg-white object-contain"
+        />
+        <span class="font-bold text-base text-blue-800 tracking-tight">Textabot.io</span>
+      </div>
+      <span>© 2026</span>
+    </div>
+  </footer>
+
 </body>
 </html>

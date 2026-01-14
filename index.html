@@ -172,12 +172,20 @@
           Early access — no spam
         </h2>
 
-        <form class="mt-6 flex flex-col sm:flex-row gap-3">
+          <form id="earlyAccessForm" class="mt-6 flex flex-col gap-3">
+          <input
+            type="text"
+            name="entry.2005620554"
+            required
+            placeholder="What do you want to use Textabot for?"
+            class="rounded-md border border-blue-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-white/70"
+          />
           <input
             type="email"
+            name="entry.1045781291"
             required
             placeholder="you@example.com"
-            class="flex-1 rounded-md border border-blue-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-white/70"
+            class="rounded-md border border-blue-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-white/70"
           />
           <button
             type="submit"
@@ -186,6 +194,25 @@
             Request Access
           </button>
         </form>
+          <div id="earlyAccessThankYou" class="hidden mt-6 text-lg text-white font-semibold">Thank you! We'll be in touch soon.</div>
+          <script>
+          document.getElementById('earlyAccessForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var form = e.target;
+            var data = {
+              usage: form.querySelector('[name="entry.2005620554"]').value,
+              email: form.querySelector('[name="entry.1045781291"]').value
+            };
+            fetch('https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLjH5JrEBfZ6YNKTcsH5YYPu7LC-wosq5TCO0fcTRPPMUd-uNcvghxghrVC0VJb_jTZz692KIRWx6EELequI25lijz-Cpih1FSDETBGx-XZ5Ha44_PEaCJnKOXkrZ1a_zlX-78mOkNXOrnbrwr0O1c7PmGDOHMBcZ5-gIbDdliwv_TI5_mJMM3rsQFcUAaWQc_d2TYh_jILilLKB3k-3JK2bZ-srwVT-pJtdrd47gCHOMXD3xXi6w2OI8F_xBYw0th14J9su_ACCXJMVzOR66HMc57Fhag&lib=MVS83nN0mn0jTRdLVRnYk_lgdF5Y_Jutd', {
+              method: 'POST',
+              body: JSON.stringify(data),
+              headers: { 'Content-Type': 'application/json' }
+            }).then(function() {
+              form.style.display = 'none';
+              document.getElementById('earlyAccessThankYou').style.display = 'block';
+            });
+          });
+          </script>
       </div>
     </section>
 
